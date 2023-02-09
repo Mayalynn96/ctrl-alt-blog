@@ -24,7 +24,15 @@ router.get("/signup",(req,res)=>{
 
 router.get("/homepage",(req,res)=>{
     if(req.session.userId){
-        res.render("homepage");
+        Post.findAll({
+            include:[User, Comment]
+        }).then(userData => {
+            const hbsUser = userData.map(post=>post.toJSON())
+            console.log(hbsUser);
+            res.render("homepage", {
+                posts:hbsUser
+            })
+        })
     } else {
         res.redirect('/login');
     }
@@ -38,7 +46,7 @@ router.get("/profile", (req,res)=>{
             const hbsUser = userData.toJSON()
             console.log(hbsUser);
             res.render("profile", {
-                user:hbsUser
+                users:hbsUser
             })
         })
     } else {

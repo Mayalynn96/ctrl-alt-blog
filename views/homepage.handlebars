@@ -1,9 +1,15 @@
 <h1>Homepage</h1>
-<h2>All chirps</h2>
+<h2>All posts</h2>
 
-{{#each allPosts}}
-<section>
-    <h3>{{User.username}} chirped:</h3>
-    <p>{{post}}</p>
-</section>
-{{/each}}
+<div class="postDiv">
+    {{#each posts}}
+    <div class="post">
+        <h4>{{User.username}} posted:</h4>
+        <p class="text">{{post}}</p>
+        <button data-id="{{id}}">Delete</button>
+        <button class="commentBtn" data-id="{{id}}">Add comment</button>
+    </div>
+    {{/each}}
+</div>
+
+<script src="js/homepage.js"></script>

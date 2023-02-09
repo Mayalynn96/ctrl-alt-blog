@@ -1,0 +1,22 @@
+<div class="userDiv">
+    <h1>🌸 {{user.username}}</h1>
+    <p id="decription"></p>
+    <P>Number of posts: {{user.Posts.length}}</P>
+    <P>Number of comments: {{user.Comments.length}}</P>
+    <p>member since:<span id="memberSince"></span></p>
+</div>
+<div class="postDiv">
+    {{#each user.Posts}}
+    <p>{{post}}</p>
+    {{/each}}
+</div>
+<div class="addPostDiv">
+  <h2>Add a post</h2>
+<form id="postForm">
+    <textarea id="postInput" placeholder="text"></textarea>
+    <br>
+    <button>Post!</button>
+</form>  
+</div>
+
+<script src="js/profile.js"></script>

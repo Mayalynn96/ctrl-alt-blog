@@ -1,0 +1,145 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    background-color: #e5e2e9;
+}
+
+header, footer {
+    height: 10vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background-color: #D5C9DF;
+    margin-bottom: 10px;
+}
+
+header h1 {
+    font-size: 50px;
+    color: #564565;
+}
+
+nav {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    opacity: 80%;
+}
+
+nav a{
+    text-decoration: none;
+    font-size: 20px;
+    color: #564565;
+}
+
+main {
+    display: flex;
+    min-height: 70vh;
+}
+
+.forms{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#loginForm, #signupForm {
+    display: flex;
+    flex-direction: column;
+    background-color: #564565;
+    min-height: 25vh;
+    width: 20%;
+    justify-content: space-evenly;
+    align-items: center;
+    opacity: 75%;
+    border-radius: 10px;
+}
+
+#signupForm {
+    height: 35vh;
+}
+
+form input {
+    font-size: 20px;
+    width: 80%;
+    margin: 5px;
+}
+
+form button {
+    font-size: 20px;
+    padding: 5px 10px;
+    margin: 5px;
+}
+
+#signupBtn {
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    background-color: #564565;
+    color: #D5C9DF;
+    border-color: #564565;
+    opacity: 75%;
+    border-radius: 5px;
+}
+
+#signupBtn:hover {
+    color: #564565;
+    background-color: #D5C9DF;
+    border-color: #D5C9DF;
+}
+
+.userDiv, .addPostDiv {
+    width: 25%;
+    margin: 5px;
+    border: #564565 solid 2px;
+    border-radius: 10px 10px 0px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.userDiv h1, .addPostDiv h2 {
+    background-color: #564565;
+    padding: 15px 5px;
+    color: #D5C9DF;
+    width: 100%;
+}
+
+.userDiv p, #postForm {
+    margin: 15px 10px;
+    color: #564565;
+}
+
+.postDiv {
+    width: 50%;
+    margin: 5px;
+}
+
+.addPostDiv {
+    align-items: center;
+    text-align: center;
+}
+
+#postForm{
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+form textarea {
+    width: 90%;
+    height: 50%;
+}

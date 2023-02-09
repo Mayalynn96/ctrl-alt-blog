@@ -125,6 +125,19 @@ form button {
     margin: 5px;
 }
 
+.post {
+    width: 90%;
+    border: #564565 solid 1px;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.text {
+    margin: 10px 0;
+    min-height: 7vh;
+}
+
 .addPostDiv {
     align-items: center;
     text-align: center;

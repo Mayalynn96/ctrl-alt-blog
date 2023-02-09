@@ -5,7 +5,7 @@ class Post extends Model {}
 
 Post.init({
     // add properites here, ex:
-    Post: {
+    post: {
          type: DataTypes.STRING,
          allowNull:false
     }

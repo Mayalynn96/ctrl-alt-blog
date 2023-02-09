@@ -3,7 +3,9 @@ const router = express.Router()
 const {User,Post,Comment} = require('../models')
 
 router.get("/", (req,res)=>{
- Post.findAll().then(postData=>{
+ Post.findAll({
+    include:[User,Comment]
+ }).then(postData=>{
     res.json(postData)
  }).catch(err=>{
     console.log(err);
@@ -13,7 +15,7 @@ router.get("/", (req,res)=>{
 
 router.get("/:id", (req,res)=>{
     Post.findByPk(req.params.id,{
-        include:[User]
+        include:[User, Comment]
     }).then(postData=>{
        res.json(postData)
     }).catch(err=>{

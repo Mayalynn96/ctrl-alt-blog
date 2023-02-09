@@ -8,6 +8,6 @@ const postRoutes = require('./postController')
 router.use("/api/posts", postRoutes)
 
 const commentRoutes = require('./commentController')
-router.use("/", commentRoutes)
+router.use("/api/comments", commentRoutes)
 
 module.exports = router

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router()
 const {User,Post,Comment} = require('../models')
 const bcrypt = require('bcrypt');
+const { Op } = require("sequelize");
 
 router.get("/", (req,res)=>{
  User.findAll().then(userData=>{
@@ -46,11 +47,11 @@ router.post("/", (req,res)=>{
 router.post("/login", (req,res)=>{
     User.findOne({
         where:{
-            email:req.body.email
+            [Op.or]: [{ username: req.body.login }, [{ email: req.body.login }]]
         }
     }).then(userData=>{
         if(!userData){
-            res.status(401).json({msg:"Incorrect email or password"})
+            res.status(401).json({msg:"Incorrect login or password"})
         } else {
             if(bcrypt.compareSync(req.body.password,userData.password)){
                 req.session.userId = userData.id
@@ -66,5 +67,26 @@ router.post("/login", (req,res)=>{
     })
 })
 
+router.delete("/:id", (req,res)=>{
+    if(req.session.userId){
+       User.findByPk(req.params.id).then(userData=>{
+         if(!userData){
+          res.status(404).json({msg:"No such user!"})
+         } else if(userData.id===req.session.userId){
+          User.destroy({where: {
+             id:req.params.id
+          }})
+          res.send("User deleted!")
+         } else {
+          res.status(403).json({msg:"You can not delete another user!"})
+         }
+      }).catch(err=>{
+         console.log(err);
+         res.status(500).json({msg:"An error occured",err})
+      })
+    } else {
+       res.status(403).json({msg:"login to delete a user!"})
+    }
+ })
 
 module.exports = router

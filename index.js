@@ -2,7 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const Handlebars = require('handlebars');
-const HandlebarsIntl = require('handlebars-intl');
 const allRoutes = require('./controllers');
 const dayjs = require('dayjs');
 

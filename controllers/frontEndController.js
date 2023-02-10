@@ -28,9 +28,11 @@ router.get("/homepage",(req,res)=>{
             include:[User, Comment]
         }).then(userData => {
             const hbsUser = userData.map(post=>post.toJSON())
-            console.log(hbsUser);
+            const session = JSON.stringify(req.session)
+            // console.log(hbsUser);
+            // console.log(session);
             res.render("homepage", {
-                posts:hbsUser
+                posts:hbsUser, session
             })
         })
     } else {
@@ -41,12 +43,17 @@ router.get("/homepage",(req,res)=>{
 router.get("/profile", (req,res)=>{
     if(req.session.userId){
         User.findByPk(req.session.userId,{
-            include:[Post, Comment]
+            include:[{
+                model:Post,
+                include:{
+                    model:Comment
+                }
+            }, Comment]
         }).then(userData => {
             const hbsUser = userData.toJSON()
             console.log(hbsUser);
             res.render("profile", {
-                users:hbsUser
+                user:hbsUser
             })
         })
     } else {

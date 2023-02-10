@@ -24,6 +24,22 @@ router.get("/:id", (req,res)=>{
     })
 })
 
+router.get("/bypost/:id", (req,res)=>{
+   Post.findByPk(req.params.id,{
+      include:[{
+         model:Comment,
+         include:{
+             model:User
+         }
+     }]
+   }).then(commentData=>{
+      res.json(commentData)
+   }).catch(err=>{
+      console.log(err);
+      res.status(500).json({msg:"An error occured",err})
+   })
+})
+
 router.post("/", (req,res)=>{
    if(req.session.userId){
       Comment.create({

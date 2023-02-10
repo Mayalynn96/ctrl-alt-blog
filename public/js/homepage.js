@@ -75,24 +75,62 @@ document.querySelectorAll(".seeBtn").forEach(btn => {
         }).then(res => {
             return res.json()
         }).then(data => {
-            console.log(data);
             data.Comments.forEach(comment => {
+                
                 const dateData = dayjs(comment.createdAt).format("MMM DD YYYY")
                 const username = document.createElement("h4");
                 username.textContent = comment.User.username + " posted on " + dateData;
 
                 const commentText = document.createElement("p");
                 commentText.textContent = comment.comment;
+                commentText.setAttribute("comment-id", comment.id)
+                commentText.setAttribute("id", `commentText${comment.id}`)
 
                 const commentDiv = document.createElement("div");
 
                 const delBtn = document.createElement("button");
-                delBtn.setAttribute("class", "commentDelBtn")
+                delBtn.setAttribute("class", "commentDelBtn");
+                delBtn.setAttribute("user-id", comment.UserId);
+                delBtn.setAttribute("comment-id", comment.id);
                 delBtn.textContent = "Delete"
+
+                // const editBtn = document.createElement("button");
+                // editBtn.setAttribute("class", "commentEditBtn");
+                // editBtn.setAttribute("user-id", comment.UserId);
+                // editBtn.setAttribute("comment-id", comment.id);
+                // editBtn.textContent = "Edit"
 
                 commentDiv.appendChild(username);
                 commentDiv.appendChild(commentText);
-                commentDiv.appendChild(delBtn)
+                commentDiv.appendChild(delBtn);
+                // commentDiv.appendChild(editBtn);
+
+                fetch("/sessions", {
+                    method: "GET"
+                }).then(function (res) {
+                    return res.json();
+                }).then(data => {
+                    document.querySelectorAll(".commentDelBtn").forEach(btn => {
+                        if (btn.getAttribute("user-id") != data.userId) {
+                            btn.remove()
+                        } else {
+                            btn.addEventListener("click", () => {
+                                const id = btn.getAttribute("comment-id")
+                                fetch(`/api/comments/${id}`, {
+                                    method: "DELETE"
+                                }).then(res => {
+                                    if (res.ok) {
+                                        location.href = "/homepage"
+                                    } else {
+                                        alert("trumpet sound")
+                                    }
+                                })
+                            })
+                        }
+                    })
+                }).catch(err => {
+                    console.log(err);
+                })
 
                 allCommentDiv.append(commentDiv)
             })
@@ -113,13 +151,11 @@ fetch("/sessions", {
     return res.json();
 }).then(data => {
     document.querySelectorAll(".editBtn").forEach(btn => {
-        console.log(btn.getAttribute("user-id"));
         if (btn.getAttribute("user-id") != data.userId) {
             btn.remove()
         } else {
             btn.addEventListener("click", () => {
                 const original = btn.nextElementSibling.innerHTML
-                console.log(original);
                 if(btn.textContent==="Edit"){
                     btn.textContent = "X"
                     const textarea = document.createElement("textarea")
@@ -155,7 +191,6 @@ fetch("/sessions", {
         }
     })
     document.querySelectorAll(".delBtn").forEach(btn => {
-        console.log(btn.getAttribute("user-id"));
         if (btn.getAttribute("user-id") != data.userId) {
             btn.remove()
         } else {
@@ -173,7 +208,6 @@ fetch("/sessions", {
             })
         }
     })
-    console.log(data);
 }).catch(err => {
     console.log(err);
 })
